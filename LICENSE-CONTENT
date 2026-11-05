@@ -1,0 +1,8 @@
+Text, figures and documentation in this repository (README.md, docs/*.md and reports/figures/)
+are licensed under the Creative Commons Attribution 4.0 International licence (CC BY 4.0):
+https://creativecommons.org/licenses/by/4.0/
+
+The figures are derived from third-party data that keep their own licences, listed in
+docs/DATA.md (OpenStreetMap data: ODbL; ESA WorldCover: CC BY 4.0; Meta/WRI canopy height:
+CC BY 4.0; GHS-POP: CC BY 4.0; Sentinel-2: Copernicus open licence; Mapillary images are not
+redistributed here).

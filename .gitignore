@@ -1,0 +1,19 @@
+# внутренние файлы планирования и ревью: в публичный репозиторий не идут
+PLAN.md
+CLAUDE.md
+TOOLS.md
+**/REVIEW.md
+**/post_*.md
+# данные и окружения
+**/data/raw/
+**/.venv/
+**/__pycache__/
+*.pyc
+.DS_Store
+publish_day.sh
+days/README.md
+INSIGHTS.md
+REVIEW_TODAY.md
+STYLES.md
+side-session-notes/
+shared/delivery/
