@@ -1,0 +1,441 @@
+{
+ "dome_axis_bng": [
+  532054.5,
+  181142.5
+ ],
+ "lidar_top_m_aod": 119.0,
+ "ground_m_aod": 16.8,
+ "levels_m_above_ground": [
+  111.0,
+  100.0,
+  85.0,
+  70.0,
+  53.0,
+  40.0,
+  25.0
+ ],
+ "extent_bng": [
+  517800.0,
+  172400.0,
+  539800.0,
+  190800.0
+ ],
+ "open_ground_km2": 241.23,
+ "sees_any_km2": 3.66,
+ "sees_whole_dome_km2": 0.84,
+ "sees_any_within_10km_km2": 3.26,
+ "open_within_10km_km2": 162.96,
+ "vc_stpauls_km2": 3.86,
+ "vc_stpauls_open_km2": 1.82,
+ "vc_stpauls_open_sees_any_km2": 0.22,
+ "vc_stpauls_open_sees_whole_km2": 0.07,
+ "sees_any_outside_vc_share": 0.9399,
+ "sees_any_outside_vc_and_wsca_share": 0.8578,
+ "class_km2": {
+  "whole_dome": 0.84,
+  "upper_dome": 1.11,
+  "lantern_only": 1.71
+ },
+ "corridors": [
+  {
+   "view": "1A.2",
+   "place": "Alexandra Palace viewing terrace",
+   "area_km2": 0.646,
+   "open_share": 0.438,
+   "open_sees_any": 0.052,
+   "open_sees_whole": 0.022
+  },
+  {
+   "view": "2A.1",
+   "place": "Parliament Hill summit",
+   "area_km2": 0.465,
+   "open_share": 0.394,
+   "open_sees_any": 0.067,
+   "open_sees_whole": 0.037
+  },
+  {
+   "view": "3A.1",
+   "place": "Kenwood viewing gazebo",
+   "area_km2": 0.556,
+   "open_share": 0.402,
+   "open_sees_any": 0.051,
+   "open_sees_whole": 0.027
+  },
+  {
+   "view": "4A.1",
+   "place": "Primrose Hill summit",
+   "area_km2": 0.337,
+   "open_share": 0.369,
+   "open_sees_any": 0.081,
+   "open_sees_whole": 0.051
+  },
+  {
+   "view": "5A.2",
+   "place": "Greenwich Park Wolfe statue",
+   "area_km2": 0.669,
+   "open_share": 0.671,
+   "open_sees_any": 0.19,
+   "open_sees_whole": 0.035
+  },
+  {
+   "view": "6A.1",
+   "place": "Blackheath Point",
+   "area_km2": 0.472,
+   "open_share": 0.555,
+   "open_sees_any": 0.119,
+   "open_sees_whole": 0.045
+  },
+  {
+   "view": "8A.1",
+   "place": "Westminster Pier",
+   "area_km2": 0.088,
+   "open_share": 0.51,
+   "open_sees_any": 0.593,
+   "open_sees_whole": 0.448
+  },
+  {
+   "view": "9A.1",
+   "place": "King Henry's Mound",
+   "area_km2": 0.626,
+   "open_share": 0.524,
+   "open_sees_any": 0.206,
+   "open_sees_whole": 0.09
+  }
+ ],
+ "places": [
+  {
+   "place": "Alexandra Palace viewing terrace",
+   "landmark": "St Paul's Cathedral",
+   "bng": [
+    529710,
+    190072
+   ],
+   "ground_m": 91.8,
+   "object_height_m": 1.8,
+   "lowest_visible_level_here": 40.0,
+   "lowest_visible_level_within_30m": null
+  },
+  {
+   "place": "Parliament Hill summit",
+   "landmark": "St Paul's Cathedral",
+   "bng": [
+    527665,
+    186131
+   ],
+   "ground_m": 96.5,
+   "object_height_m": 0.0,
+   "lowest_visible_level_here": 40.0,
+   "lowest_visible_level_within_30m": null
+  },
+  {
+   "place": "Parliament Hill summit",
+   "landmark": "the Palace of Westminster",
+   "bng": [
+    527665,
+    186131
+   ],
+   "ground_m": 96.5,
+   "object_height_m": 0.0,
+   "lowest_visible_level_here": 40.0,
+   "lowest_visible_level_within_30m": null
+  },
+  {
+   "place": "Parliament Hill oak tree",
+   "landmark": "Palace of Westminster",
+   "bng": [
+    528043,
+    186155
+   ],
+   "ground_m": 70.1,
+   "object_height_m": 3.4,
+   "lowest_visible_level_here": 70.0,
+   "lowest_visible_level_within_30m": null
+  },
+  {
+   "place": "Kenwood viewing gazebo",
+   "landmark": "St Paul's Cathedral",
+   "bng": [
+    527270,
+    187486
+   ],
+   "ground_m": 112.1,
+   "object_height_m": 0.0,
+   "lowest_visible_level_here": 40.0,
+   "lowest_visible_level_within_30m": null
+  },
+  {
+   "place": "Primrose Hill summit",
+   "landmark": "St Paul's Cathedral",
+   "bng": [
+    527657,
+    183893
+   ],
+   "ground_m": 66.7,
+   "object_height_m": 0.1,
+   "lowest_visible_level_here": 40.0,
+   "lowest_visible_level_within_30m": 40.0
+  },
+  {
+   "place": "Primrose Hill summit",
+   "landmark": "the Palace of Westminster",
+   "bng": [
+    527657,
+    183893
+   ],
+   "ground_m": 66.7,
+   "object_height_m": 0.1,
+   "lowest_visible_level_here": 40.0,
+   "lowest_visible_level_within_30m": 40.0
+  },
+  {
+   "place": "Greenwich Park Wolfe statue",
+   "landmark": "Tower Bridge",
+   "bng": [
+    538936,
+    177334
+   ],
+   "ground_m": 47.2,
+   "object_height_m": 0.0,
+   "lowest_visible_level_here": 40.0,
+   "lowest_visible_level_within_30m": null
+  },
+  {
+   "place": "Greenwich Park Wolfe statue",
+   "landmark": "St Paul's Cathedral",
+   "bng": [
+    538936,
+    177334
+   ],
+   "ground_m": 47.2,
+   "object_height_m": 0.0,
+   "lowest_visible_level_here": 40.0,
+   "lowest_visible_level_within_30m": null
+  },
+  {
+   "place": "Blackheath Point",
+   "landmark": "St Paul's Cathedral",
+   "bng": [
+    538238,
+    176823
+   ],
+   "ground_m": 46.0,
+   "object_height_m": 0.1,
+   "lowest_visible_level_here": 40.0,
+   "lowest_visible_level_within_30m": null
+  },
+  {
+   "place": "Westminster Pier",
+   "landmark": "St Paul's Cathedral",
+   "bng": [
+    530327,
+    179774
+   ],
+   "ground_m": 6.2,
+   "object_height_m": 7.3,
+   "lowest_visible_level_here": null,
+   "lowest_visible_level_within_30m": null
+  },
+  {
+   "place": "King Henry's Mound",
+   "landmark": "St Paul's Cathedral",
+   "bng": [
+    518606,
+    173150
+   ],
+   "ground_m": 57.5,
+   "object_height_m": 3.0,
+   "lowest_visible_level_here": null,
+   "lowest_visible_level_within_30m": null
+  },
+  {
+   "place": "Centre of Bridge over the Serpentine",
+   "landmark": "the Palace of Westminster",
+   "bng": [
+    526927,
+    180167
+   ],
+   "ground_m": 15.0,
+   "object_height_m": 4.8,
+   "lowest_visible_level_here": null,
+   "lowest_visible_level_within_30m": null
+  },
+  {
+   "place": "City Hall",
+   "landmark": "the White Tower",
+   "bng": [
+    533656,
+    180514
+   ],
+   "ground_m": 8.3,
+   "object_height_m": 0.0,
+   "lowest_visible_level_here": null,
+   "lowest_visible_level_within_30m": null
+  }
+ ],
+ "checks": {
+  "Millennium Bridge, south end": {
+   "open_ground": true,
+   "object_m": 0.0,
+   "lowest_visible_level": 85.0
+  },
+  "Ludgate Circus (Fleet Street)": {
+   "open_ground": false,
+   "object_m": 10.8,
+   "lowest_visible_level": null
+  },
+  "Waterloo Bridge, middle": {
+   "open_ground": true,
+   "object_m": 0.0,
+   "lowest_visible_level": 53.0
+  },
+  "Tate Modern riverside": {
+   "open_ground": true,
+   "object_m": 0.0,
+   "lowest_visible_level": 40.0
+  },
+  "Thames off Blackfriars": {
+   "open_ground": true,
+   "object_m": 0.0,
+   "lowest_visible_level": null
+  },
+  "Cannon Street at Walbrook": {
+   "open_ground": false,
+   "object_m": 17.4,
+   "lowest_visible_level": null
+  },
+  "Paternoster Square": {
+   "open_ground": false,
+   "object_m": 28.9,
+   "lowest_visible_level": null
+  },
+  "Hungerford Bridge": {
+   "open_ground": false,
+   "object_m": 8.2,
+   "lowest_visible_level": null
+  },
+  "Tower Bridge, middle": {
+   "open_ground": true,
+   "object_m": 0.0,
+   "lowest_visible_level": 100.0
+  },
+  "Canary Wharf, Cabot Square": {
+   "open_ground": false,
+   "object_m": 207.2,
+   "lowest_visible_level": null
+  }
+ },
+ "sensitivity": {
+  "open_ground_threshold_m": {
+   "1.0": {
+    "open_km2": 205.0,
+    "sees_any_km2": 3.48,
+    "sees_any_share_of_open_pct": 1.7,
+    "vc_open_blind_pct": 86.8,
+    "sees_any_outside_vc_pct": 93.9,
+    "whole_dome_km2": 0.79
+   },
+   "2.0": {
+    "open_km2": 241.2,
+    "sees_any_km2": 3.66,
+    "sees_any_share_of_open_pct": 1.52,
+    "vc_open_blind_pct": 87.9,
+    "sees_any_outside_vc_pct": 94.0,
+    "whole_dome_km2": 0.84
+   },
+   "3.0": {
+    "open_km2": 265.8,
+    "sees_any_km2": 3.76,
+    "sees_any_share_of_open_pct": 1.41,
+    "vc_open_blind_pct": 88.6,
+    "sees_any_outside_vc_pct": 94.0,
+    "whole_dome_km2": 0.87
+   }
+  },
+  "resolution_1m_vs_5m_within_1km": {
+   "5m": {
+    "open_km2": 1.183,
+    "sees_any_pct": 31.6,
+    "whole_dome_pct": 17.3
+   },
+   "1m": {
+    "open_km2": 1.332,
+    "sees_any_pct": 24.4,
+    "whole_dome_pct": 12.3
+   },
+   "note": "same ray method on the 1 m first-return DSM/DTM, 2 x 2 km square centred on the dome, observers within 1 km"
+  }
+ },
+ "public_space": {
+  "public_km2": 135.23,
+  "public_share_of_open": 0.5606,
+  "public_sees_any_km2": 1.74,
+  "public_sees_any_share": 0.0128,
+  "public_sees_whole_km2": 0.44,
+  "public_seeing_outside_zone_share": 0.9621,
+  "public_in_zone_km2": 1.007,
+  "public_in_zone_blind_share": 0.9347,
+  "open_seeing_on_water_share": 0.3267,
+  "open_seeing_public_share": 0.4736,
+  "corridors": {
+   "1A.2": {
+    "place": "Alexandra Palace viewing terrace",
+    "public_cells": 7870,
+    "seeing": 564,
+    "public_cells_3_5km": 2066,
+    "seeing_3_5km": 0
+   },
+   "2A.1": {
+    "place": "Parliament Hill summit",
+    "public_cells": 5253,
+    "seeing": 435,
+    "public_cells_3_5km": 1309,
+    "seeing_3_5km": 0
+   },
+   "3A.1": {
+    "place": "Kenwood viewing gazebo",
+    "public_cells": 6113,
+    "seeing": 396,
+    "public_cells_3_5km": 1512,
+    "seeing_3_5km": 0
+   },
+   "4A.1": {
+    "place": "Primrose Hill summit",
+    "public_cells": 4064,
+    "seeing": 333,
+    "public_cells_3_5km": 887,
+    "seeing_3_5km": 48
+   },
+   "5A.2": {
+    "place": "Greenwich Park Wolfe statue",
+    "public_cells": 5909,
+    "seeing": 1104,
+    "public_cells_3_5km": 2621,
+    "seeing_3_5km": 142
+   },
+   "6A.1": {
+    "place": "Blackheath Point",
+    "public_cells": 5926,
+    "seeing": 650,
+    "public_cells_3_5km": 1960,
+    "seeing_3_5km": 0
+   },
+   "8A.1": {
+    "place": "Westminster Pier",
+    "public_cells": 679,
+    "seeing": 208,
+    "public_cells_3_5km": 0,
+    "seeing_3_5km": 0
+   },
+   "9A.1": {
+    "place": "King Henry's Mound",
+    "public_cells": 7348,
+    "seeing": 407,
+    "public_cells_3_5km": 1389,
+    "seeing_3_5km": 0
+   }
+  },
+  "note": "public space = Overture road/footway/pedestrian segments buffered by class (tunnels dropped) + parks, gardens, playgrounds, commons, plazas; intersected with open ground, water excluded (bridge decks stay: the EA DTM keeps them)",
+  "roads_cells_km2": 130.07,
+  "areas_cells_km2": 66.15
+ }
+}

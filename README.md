@@ -6,6 +6,7 @@ Focus: Amsterdam and London, the Netherlands and Britain, Belgrade where it has 
 geography of food delivery in Amsterdam and London.
 
 | Day | Theme | Map |
+| 5 | Senses: Sight | [What London is allowed to see](days/05-sight/) |
 |---|---|---|
 
 Code: MIT ([LICENSE](LICENSE)). Maps and text: CC BY 4.0 ([LICENSE-CONTENT](LICENSE-CONTENT)). Data keep their own licences, listed in each day's README.

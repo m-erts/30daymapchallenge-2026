@@ -1,0 +1,10 @@
+# raw LiDAR tiles and other downloads heavier than ~50 MB live here, never in git
+data/raw/
+__pycache__/
+# internal review notes and post drafts stay local (see ../../CLAUDE.md)
+REVIEW.md
+post_*.md
+# trials of other styles, not published
+drafts/
+.venv3d/
+frames3d/
