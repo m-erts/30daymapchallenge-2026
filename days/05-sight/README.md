@@ -2,16 +2,18 @@
 
 Day 5 compares two cities with a law on views: London's LVMF corridors to St Paul's and Paris's fuseaux de protection to the
 Sacré-Cœur and the Panthéon, with the same LiDAR viewshed for both. The day's main picture is the comparison figure; this folder holds
-the London analysis behind its left panel, [`paris/`](paris/) holds the Paris half and the figure itself.
+the London analysis behind its left panel; the Paris half and the script of the figure (`paris/`) are kept locally and are not
+in this repository yet.
 
 ![Two cities, one dome each](map_en.png)
 
 Frames, in reading order (EN; Russian versions next to each): the comparison `map_en.png` (both cities at 50 m, a 5 m window
 for each, one real line of sight through a protected corridor, three numbers per dome); the detail `map_en_detail.png` (two zoom windows at the model's 5 m and three real lines of sight in London);
-the London sheet `map_en_london.png`; the Paris sheet `paris/map_paris_en.png`. Video: `video/story_en.mp4` (12.5 s).
+the London sheet `map_en_london.png`; the 3D still `map_en_3d.png`. Video: a 3D close-up of St Paul's with the three lines of sight
+(27.9 s, `scene3d.py`), posted with the day; the video files are not stored here.
 Interactive: `index.html`, one self-contained file (both cities at the same ground scale, layer switches, click to read a cell).
 Style: one quiet base (OS Open Zoomstack Light in London, IGN PLAN.IGN and Apur blues in Paris); the LiDAR buildings and trees
-are used for the lines of sight but not drawn. The first dark versions are kept as `*_old.png`.
+are used for the lines of sight but not drawn.
 Local element (Ordnance Survey sheet habit): National Grid ticks every 5 km with the two-digit grid numbers of 100 km square TQ on
 the London panel, as on the OS-style London sheet. Data element: the line of sight cut through the LiDAR surface (Parliament Hill
 to St Paul's, with St Pancras Way under it). Every image ends with the series signature in monospace
@@ -195,6 +197,9 @@ python animate.py en ru        # video/sweep_en.mp4, video/sweep_ru.mp4 (needs f
 Needs numpy, numba, rasterio, geopandas, shapely, pyproj, duckdb, matplotlib. Fonts come from `shared/styles/fonts` (Source Sans 3).
 
 ## Files
+
+Not in this repository (kept locally, rebuilt by the scripts below): `paris/`, `video/`, `drafts/`, `data/derived/ndsm_5m.tif`
+and the first versions `map_*_old.png`. Entries below that point there describe the local folder.
 
 - `fetch_lidar.py`: downloads the 1 m DSM and DTM through Defra's WCS in 5 × 5 km tiles, resampled server-side to 5 m, into
   `data/raw/` (not in git, 2 × 65 MB, ~2 minutes).
