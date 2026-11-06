@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rotterdam, 14 May 1940</title>
+<meta name="description" content="Rotterdam's buildings by year of construction, the 1940 fire line marked in the pavement, and the city's map of the destroyed area from May 1940. #30DayMapChallenge day 6.">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  /* palette of shared/styles/nl_rotterdam.py: sampled from the city's own maps of 1940 and 1955 */
+  :root {
+    --paper: #E1D1A2; --paper-2: #E3D7B1; --ink: #3E340E; --ink-2: #5f5540; --line: #563D0F;
+    --pre: #7A4E12; --mid: #DA6A2A; --late: #A8977A;
+    --water: #BEC1B0; --shore: #563D0F; --fire: #DFC757; --rule: #b3a274;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--paper); color: var(--ink);
+    font-family: "Jost", "Futura", "Avenir Next", "Helvetica Neue", Arial, sans-serif; }
+  body { display: flex; flex-direction: column; }
+  header { padding: 14px 20px 10px; border-bottom: 3px double var(--ink); }
+  h1 { margin: 0; font-size: 30px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; }
+  .sub { margin: 4px 0 0; font-size: 15px; color: var(--ink-2); max-width: 70em; line-height: 1.35; }
+  main { flex: 1; display: flex; min-height: 0; }
+  #map { flex: 1; background: var(--paper); }
+  aside { width: 320px; padding: 14px 16px; border-left: 1px solid var(--rule); overflow-y: auto; font-size: 14px; line-height: 1.4; }
+  aside h2 { font-size: 12.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; margin: 16px 0 6px; border-bottom: 1px solid var(--rule); padding-bottom: 3px; }
+  aside h2:first-child { margin-top: 0; }
+  .slider label { display: flex; justify-content: space-between; font-size: 13px; color: var(--ink-2); }
+  input[type=range] { width: 100%; accent-color: var(--mid); margin: 6px 0 2px; }
+  .toggle { display: block; margin: 4px 0; cursor: pointer; }
+  .key { display: flex; align-items: center; gap: 8px; margin: 5px 0; }
+  .sw { width: 26px; height: 14px; flex: none; border: 1px solid; }
+  .sw.pre { background: var(--pre); border-color: var(--line); }
+  .sw.mid { background: var(--mid); border-color: var(--line); }
+  .sw.late { background: var(--late); border-color: var(--line); }
+  .sw.water { background: var(--water); border-color: var(--shore); }
+  .sw.v40 { background: #f0a83a; border-color: #b8741a; }
+  .sw.fire { height: 7px; background: var(--fire); border: 2px solid var(--line); border-radius: 4px; }
+  .dots { display: inline-flex; gap: 4px; width: 26px; justify-content: center; flex: none; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; border: 1px solid var(--ink); }
+  .stat { font-size: 15px; }
+  .stat b { font-size: 20px; }
+  .small { font-size: 12px; color: var(--ink-2); }
+  .hint { font-size: 13px; margin: 8px 0 0; padding: 6px 8px; border: 1px dashed var(--rule); }
+  .lostsym { width: 26px; flex: none; text-align: center; }
+  .lostsym::before { content: ""; display: inline-block; width: 9px; height: 9px; border: 2px solid var(--ink); border-radius: 50%; background: var(--paper); }
+  .leaflet-popup-content-wrapper, .leaflet-popup-tip { background: var(--paper); color: var(--ink); border: 1px solid var(--ink-2); box-shadow: none; }
+  .leaflet-popup-content { font-family: "Jost", "Futura", "Helvetica Neue", Arial, sans-serif; font-size: 13.5px; line-height: 1.4; margin: 10px 12px; }
+  .leaflet-popup-content b.t { font-size: 15px; }
+  .leaflet-popup-content p { margin: 6px 0; }
+  .leaflet-popup-content .m { color: var(--ink-2); font-size: 12.5px; }
+  a { color: var(--mid); }
+  .leaflet-container { font-family: inherit; }
+  .leaflet-tooltip { font-family: inherit; font-size: 13px; background: var(--paper); border-color: var(--ink-2); color: var(--ink); }
+  .leaflet-control-attribution { background: rgba(225, 209, 162, 0.88) !important; font-size: 10px; }
+  .leaflet-bar a { background: var(--paper); color: var(--ink); }
+  @media (max-width: 760px) {
+    main { flex-direction: column; }
+    #map { flex: none; height: 62vh; }
+    aside { width: auto; border-left: none; border-top: 1px solid var(--rule); }
+    h1 { font-size: 22px; }
+    header { padding: 10px 16px 8px; }
+    .sub { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Rotterdam, 14 May 1940</h1>
+  <p class="sub">Inside the line where the fire of 14 May 1940 stopped, 5% of the buildings standing today predate 1940; within a kilometre
+    outside, 63%. Every building by its year of construction, under the city's own map of the destroyed area made days after the bombing:
+    move the slider to fade from 1940 to today, click a building for what stood on its spot.</p>
+</header>
+<main>
+  <div id="map" role="region" aria-label="Map of central Rotterdam"></div>
+  <aside>
+    <h2>1940 ↔ today</h2>
+    <div class="slider">
+      <input id="fade" type="range" min="0" max="100" value="45" aria-label="Opacity of the 1940 map">
+      <label><span>today</span><span>map of May 1940</span></label>
+    </div>
+    <label class="toggle"><input id="tg-b" type="checkbox" checked> buildings standing today</label>
+    <label class="toggle"><input id="tg-l" type="checkbox" checked> the fire line and its lights</label>
+    <label class="toggle"><input id="tg-x" type="checkbox" checked> buildings lost in 1940 (named)</label>
+    <p class="hint">Click any building: its year, address and use, and what the city's map of May 1940 shows on that spot.</p>
+
+    <h2>Legend</h2>
+    <div class="key"><span class="sw pre"></span><span>built before 1940, still standing</span></div>
+    <div class="key"><span class="sw mid"></span><span>built 1940–1965, the rebuilding (<i>wederopbouw</i>)</span></div>
+    <div class="key"><span class="sw late"></span><span>built after 1965</span></div>
+    <div class="key"><span class="sw fire"></span><span>brandgrens, the fire line</span></div>
+    <div class="key"><span class="dots"><span class="dot" style="background:#c8302a"></span><span class="dot" style="background:#3b9a4a"></span></span><span>lights in the pavement since 2010: red, green on the Noordereiland</span></div>
+    <div class="key"><span class="sw v40"></span><span>1940 map: <i>verwoest gebied</i>, the destroyed area</span></div>
+    <div class="key"><span class="sw water"></span><span>water today</span></div>
+    <div class="key"><span class="lostsym"></span><span>a named building lost in 1940 (Wikidata): click for what stands there now</span></div>
+
+    <h2>What the register shows</h2>
+    <p class="stat" id="stat"></p>
+    <p class="small" id="statHer"></p>
+    <p class="small" id="stat40"></p>
+    <p class="small">Not all of the gap is the fire: after the war the city also cleared buildings that had survived, to make room for the new plan (<i>wederafbraak</i>). Building counts favour old streets, where every house is its own building; the footprint share is the fairer number.</p>
+
+    <h2>13:27–13:40</h2>
+    <p class="small">258 ha in ruins, 25,000 homes and 11,000 other buildings lost, 80,000 people homeless (<a href="https://stadsarchief.rotterdam.nl/rotterdam-oorlog">Stadsarchief Rotterdam</a>).</p>
+
+    <h2>Sources</h2>
+    <p class="small">
+      Buildings: <a href="https://www.pdok.nl/introductie/-/article/basisregistratie-adressen-en-gebouwen-ba-1">BAG</a> (Kadaster via PDOK, public domain), downloaded 4 Nov 2026.
+      Water: BGT (PDOK, CC0). Fire line: lights of type <i>Grondspot Medio type Brandgrens</i> in the Gemeente Rotterdam street-lighting register (public domain), joined to nearest neighbours; gaps are where no lights are registered.
+      1940 map: <a href="https://hdl.handle.net/21.12133/CDD9C7CDDCEC43769E8D474193186EF5">Stadsarchief Rotterdam, 4001 I-210-1A</a> (Public Domain Mark), image and georeference from <a href="https://rotterdamtimemachine.nl/">Rotterdam Time Machine</a> on <a href="https://allmaps.org/">Allmaps</a>, warped for this page (4 control points, affine). Listed monuments: rijksmonumenten of the <a href="https://www.cultureelerfgoed.nl/">Rijksdienst voor het Cultureel Erfgoed</a> via PDOK (CC BY 4.0).
+    </p>
+    <p class="small">Analysis: Marija Ercegovac · #30DayMapChallenge day 6 · <a href="https://github.com/m-erts/30daymapchallenge-2026/tree/main/days/06-vintage">code and notes</a></p>
+  </aside>
+</main>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="web/context.js"></script>
+<script src="web/buildings.js"></script>
+<script>
+(function () {
+  const D = window.D6;
+  const css = getComputedStyle(document.documentElement);
+  const c = (n) => css.getPropertyValue(n).trim();
+  const map = L.map("map", { preferCanvas: true, zoomSnap: 0.25, minZoom: 12.5, maxZoom: 18,
+    maxBounds: L.latLngBounds(D.map1940.bounds).pad(0.15) });
+  const home = [[51.905, 4.457], [51.931, 4.503]];
+  map.setView([51.918, 4.48], 14);
+  // fit to the centre whenever the container changes size (flex layout, fonts, a big inline file still parsing),
+  // until the reader touches the map
+  let touched = false;
+  const fitHome = () => { if (touched) return; map.invalidateSize(); map.fitBounds(home); };
+  ["mousedown", "touchstart", "wheel", "keydown"].forEach((ev) =>
+    map.getContainer().addEventListener(ev, () => { touched = true; }, { passive: true, once: true }));
+  if (window.ResizeObserver) new ResizeObserver(fitHome).observe(map.getContainer());
+  requestAnimationFrame(fitHome);
+  window.addEventListener("load", fitHome);
+  D.map = map;                                   // handle for debugging from the console
+  map.attributionControl.setPrefix(false);
+  map.attributionControl.addAttribution("BAG, BGT: Kadaster / PDOK · 1940 map: Stadsarchief Rotterdam via Rotterdam Time Machine · lights: Gemeente Rotterdam");
+
+  const panes = { water: 300, bldg: 400, m1940: 450, line: 500, lights: 510 };
+  for (const [name, z] of Object.entries(panes)) { map.createPane(name).style.zIndex = z; }
+  const canvas = L.canvas({ padding: 0.3 });
+
+  L.geoJSON(D.water, { pane: "water", interactive: false,
+    style: { color: c("--shore"), weight: 0.8, fillColor: c("--water"), fillOpacity: 1 } }).addTo(map);
+
+  const buildings = L.geoJSON(D.buildings, { pane: "bldg", renderer: canvas, interactive: false,
+    style: (f) => ({ color: c("--line"), weight: 0.3, fillOpacity: 1,
+      fillColor: f.properties.y < 1940 ? c("--pre") : f.properties.y <= 1965 ? c("--mid") : c("--late") })
+  }).addTo(map);
+
+  const m1940 = L.imageOverlay("web/map1940.webp", D.map1940.bounds, { pane: "m1940", opacity: 0.45, interactive: false }).addTo(map);
+
+  const fireLayers = L.layerGroup([
+    L.geoJSON(D.line, { pane: "line", interactive: false, style: { color: c("--line"), weight: 5.5, lineCap: "round" } }),
+    L.geoJSON(D.line, { pane: "line", interactive: false, style: { color: c("--fire"), weight: 3, lineCap: "round" } }),
+    L.geoJSON(D.lights, { pane: "lights",
+      pointToLayer: (f, ll) => L.circleMarker(ll, { radius: 2.4, weight: 0.6, color: c("--line"), fillOpacity: 1,
+        fillColor: f.properties.c === "green" ? "#3b9a4a" : "#c8302a" }),
+      onEachFeature: (f, layer) => layer.bindTooltip(f.properties.c === "green" ? "brandgrens light (green, Noordereiland)" : "brandgrens light")
+    })
+  ]).addTo(map);
+
+  // --- text for popups ---
+  const esc = (t) => String(t).replace(/[&<>"]/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
+  const addr = (a) => a ? esc(a.replace(/ \+$/, " and more")) : "Building without an address";
+  const when = (d) => d === "1940-05-14" ? "Destroyed on 14 May 1940." :
+    /^1940-\d\d-01$/.test(d) && d !== "1940-01-01" ? `Lost in ${new Date(d + "T12:00:00Z").toLocaleString("en", { month: "long" })} 1940.` :
+    d === "1940-01-01" ? "Lost in 1940." : `Lost on ${new Date(d + "T12:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}.`;
+  function story(p) {
+    if (p.c === 1) return p.y >= 1940
+      ? `This spot lies in the area the city marked as destroyed in May 1940. Today's building went up in ${p.y}.`
+      : `The 1940 map marks this spot as destroyed, yet BAG dates the building to ${p.y}: a restored ruin, or the old map is a few metres off here.`;
+    if (p.c === 2) return p.y < 1940
+      ? `On the city's map of May 1940 this building came through the fire or could be repaired. It still stands.`
+      : `On the city's map of May 1940 a building here came through the fire or could be repaired. Today's building dates from ${p.y}: the survivor was replaced later.`;
+    if (p.c === 0 && p.z) return p.y < 1940
+      ? `Inside today's fire line, but not shaded as destroyed on the 1940 map: it came through the fire.`
+      : `Inside today's fire line, but not shaded as destroyed on the 1940 map: a street or square then, or the old map is a few metres off here.`;
+    if (p.c === 0) return p.y < 1940 ? `Outside the area destroyed in 1940; it predates the bombing.` : `Outside the area destroyed in 1940.`;
+    return `Beyond the edge of the 1940 map.`;
+  }
+  function buildingHtml(p) {
+    return `<b class="t">${addr(p.a)}</b><br>Built ${p.y}${p.u ? " · " + esc(p.u) : ""}` +
+      `<p>${story(p)}</p><span class="m"><a href="https://bagviewer.kadaster.nl/lvbag/bag-viewer/?objectId=0599${p.i}" target="_blank" rel="noopener">BAG record</a></span>`;
+  }
+  function lostHtml(r) {
+    const name = esc(r.name) + (r.name_nl && r.name_nl !== r.name ? `<br><i>${esc(r.name_nl)}</i>` : "");
+    const kind = r.kind.charAt(0).toUpperCase() + r.kind.slice(1);
+    let now = "Today there is no building on this spot.";
+    if (r.now) {
+      now = `Today on this spot: ${addr(r.now.a)}, built ${r.now.y}${r.now.u ? " (" + esc(r.now.u) + ")" : ""}.`;
+      if (r.now.y < 1940) now += ` Wikidata's point falls on a building from ${r.now.y}, so the exact spot is uncertain.`;
+    }
+    const links = [r.wiki ? `<a href="${esc(r.wiki)}" target="_blank" rel="noopener">Wikipedia</a>` : "",
+      `<a href="https://www.wikidata.org/wiki/${r.q}" target="_blank" rel="noopener">Wikidata</a>`].filter(Boolean).join(" · ");
+    return `<b class="t">${name}</b><br>${kind}${r.built ? ", built " + r.built : ""}. ${when(r.end)}<p>${now}</p><span class="m">${links}</span>`;
+  }
+
+  // --- named buildings lost in 1940 ---
+  const lost = L.layerGroup(D.lost.map((r) => {
+    const m = L.circleMarker([r.lat, r.lon], { pane: "lights", radius: 6, weight: 2.2, color: c("--ink"), fillColor: c("--paper"), fillOpacity: 1 });
+    m.bindTooltip(esc(r.name), { direction: "top" });
+    m.on("click", (e) => { L.DomEvent.stopPropagation(e); L.popup({ maxWidth: 270 }).setLatLng(e.latlng).setContent(lostHtml(r)).openOn(map); });
+    return m;
+  })).addTo(map);
+
+  // --- click on a building: own hit test, since the 1940 map and the line lie above the buildings ---
+  const feats = D.buildings.features.map((f) => {
+    const ring = f.geometry.type === "Polygon" ? [f.geometry.coordinates] : f.geometry.coordinates;
+    let x0 = 180, y0 = 90, x1 = -180, y1 = -90;
+    for (const poly of ring) for (const [x, y] of poly[0]) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
+    return { f, ring, bb: [x0, y0, x1, y1] };
+  });
+  const inRing = (x, y, pts) => { let ins = false;
+    for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) {
+      const [xi, yi] = pts[i], [xj, yj] = pts[j];
+      if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) ins = !ins;
+    } return ins; };
+  let hl = null;
+  map.on("click", (e) => {
+    if (!map.hasLayer(buildings)) return;
+    const x = e.latlng.lng, y = e.latlng.lat;
+    const hit = feats.find(({ ring, bb }) => x >= bb[0] && x <= bb[2] && y >= bb[1] && y <= bb[3] &&
+      ring.some((poly) => inRing(x, y, poly[0]) && !poly.slice(1).some((h) => inRing(x, y, h))));
+    if (hl) { map.removeLayer(hl); hl = null; }
+    if (!hit) return;
+    hl = L.geoJSON(hit.f, { pane: "lights", interactive: false, style: { color: c("--ink"), weight: 2.5, fill: false } }).addTo(map);
+    L.popup({ maxWidth: 270 }).setLatLng(e.latlng).setContent(buildingHtml(hit.f.properties)).openOn(map);
+  });
+  map.on("popupclose", () => { if (hl) { map.removeLayer(hl); hl = null; } });
+
+  const fade = document.getElementById("fade");
+  fade.addEventListener("input", () => m1940.setOpacity(fade.value / 100));
+  const toggle = (id, layer) => document.getElementById(id).addEventListener("change", (e) => e.target.checked ? layer.addTo(map) : map.removeLayer(layer));
+  toggle("tg-b", buildings); toggle("tg-l", fireLayers); toggle("tg-x", lost);
+
+  const s = D.stats, r = (x) => Math.round(x);
+  document.getElementById("stat").innerHTML =
+    `Inside the line: <b>${r(s.inside.pct_old)}%</b> of ${s.inside.n.toLocaleString("en")} buildings predate 1940 ` +
+    `(${r(s.inside.pct_old_footprint)}% of the footprint) and ${r(s.inside.pct_1940_1965)}% date from 1940–1965.<br>Within 1 km outside: ` +
+    `<b>${r(s.ring_1km.pct_old)}%</b> predate 1940 (${r(s.ring_1km.pct_old_footprint)}% of the footprint).`;
+  const h = s.analysis && s.analysis.heritage && s.analysis.heritage.summary;
+  if (h) document.getElementById("statHer").innerHTML =
+    `Listed monuments (rijksmonumenten) inside the line: ${h.inside_all}, of which ${h.inside_postwar_strict}–${h.inside_postwar} stand in ` +
+    `post-war buildings; within 1 km outside, ${h.ring_postwar} of ${h.ring_all}. Only ${h.postwar_buildings_inside_listed_pct}% of the ` +
+    `${h.postwar_buildings_inside.toLocaleString("en")} post-war buildings inside are listed.`;
+  const m = s.map1940;
+  document.getElementById("stat40").innerHTML =
+    `On the 1940 map, ${m.inside_line_on_survivor} of today's buildings inside the line stand where a building came through the fire or could be repaired; ` +
+    `${m.survivor_spots_now_post1940} of those spots now hold a building from 1940 or later. The reading uses a 4-point georeference, so near block edges it can be off by a building.`;
+  L.control.scale({ imperial: false, position: "bottomleft" }).addTo(map);
+})();
+</script>
+</body>
+</html>

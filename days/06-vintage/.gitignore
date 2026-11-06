@@ -1,0 +1,7 @@
+# raw downloads (BAG, BGT, the 1955 scan) live here, never in git
+data/raw/
+__pycache__/
+rotterdam-1940.html
+# videos and their covers are for posting (16 MB); rebuild with make_anim.py
+anim_*.mp4
+anim_cover_*.png

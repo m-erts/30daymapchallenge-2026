@@ -7,6 +7,7 @@ geography of food delivery in Amsterdam and London.
 
 | Day | Theme | Map |
 | 5 | Senses: Sight | [What London is allowed to see](days/05-sight/) |
+| 6 | Vintage | [Rotterdam, 14 May 1940](days/06-vintage/) |
 |---|---|---|
 
 Code: MIT ([LICENSE](LICENSE)). Maps and text: CC BY 4.0 ([LICENSE-CONTENT](LICENSE-CONTENT)). Data keep their own licences, listed in each day's README.
